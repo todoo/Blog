@@ -1,0 +1,61 @@
+/*修改bootstrap默认值*/
+a.list-group-item.active, a.list-group-item.active:hover, a.list-group-item.active:focus {
+    z-index: 2;
+    color: #FFF;
+    background-color: #FF9900;
+    border:none;
+}
+.list-group-item {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    margin-bottom: -1px;
+    background-color: #111111;
+    border: 1px solid #333333;
+}
+.btn-primary {
+    background-color: #FF9900;
+    border-color: #FF9900;
+}
+.btn-primary:hover,.btn-primary:focus,.btn-primary:active,.btn-primary.active,.open .dropdown-toggle.btn-primary{
+	color:#fff;
+	background-color:#FF6600;
+	border-color:#FF6600;
+}
+
+p,div{
+	word-wrap:break-word !important;
+}
+.cursor-pointer{
+	cursor: pointer;
+}
+.my-bg-black-1{
+	background-color:#111111;
+}
+.my-bg-black-3{
+	background-color:#333333 ;
+}
+.my-bg-orange-f90{
+	background-color:#FF9900;
+}
+.my-fg-white-c{
+	color:#CCCCCC;
+}
+.my-fg-orange-f90{
+	background-color:#FF9900;
+}
+.my-border-black-1{
+	border:1px solid #111111;
+	box-shadow: 2px 2px 2px #222222 ;
+}
+.my-border-black-3{
+	border:1px solid #333333;
+}
+.my-font-style-italic{
+	font-style:italic;
+}
+@media (max-width: 767px) {
+	.my-xs-padding-0 {
+		padding: 0;
+	}
+}

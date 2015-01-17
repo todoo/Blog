@@ -1,0 +1,342 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="cn.com.daybreak.model.hibernate.entity">    
+    <class name="User" table="User">
+        <id name="userID" column="userID">
+            <generator class="native"/>
+        </id>
+        <property name="urlID" type="string" column="urlID"/>
+        <property name="userName" type="string" column="userName"/>
+        <property name="password" type="string" column="password"/>
+        <property name="nickName" type="string" column="nickName"/>
+        <property name="logo" type="string" column="logo"/>
+        <property name="indexAudio" type="string" column="indexAudio"/>
+        
+        <one-to-one 
+        	name="blog"
+        	class="Blog"
+        	cascade="all"
+        	outer-join="auto"
+        />
+        
+        <set 
+        	name="statuses"
+        	table="LifeStatus"
+        	lazy="true"
+        	inverse="true"
+        	cascade="all"
+        	order-by="createTime desc">
+        	<key column="userID"/>
+        	<one-to-many
+        		class="LifeStatus"
+        		/>
+        </set>
+        
+        <set 
+        	name="statActivities"
+        	table="StatisticActivity"
+        	lazy="true"
+        	inverse="true"
+        	cascade="all"
+        	order-by="statDate">
+        	<key column="userID"/>
+        	<one-to-many
+        		class="StatisticActivity"
+        		/>
+        </set>
+        
+        <set 
+        	name="categories"
+        	table="ArticleCategory "
+        	lazy="true"
+        	inverse="true"
+        	cascade="all">
+        	<key column="userID"/>
+        	<one-to-many
+        		class="ArticleCategory"
+        		/>
+        </set>
+        
+        <set 
+        	name="articles"
+        	table="Article "
+        	lazy="true"
+        	inverse="true"
+        	cascade="all"
+        	order-by="updateTime desc">
+        	<key column="userID"/>
+        	<one-to-many
+        		class="Article"
+        		/>
+        </set>
+        
+        <set 
+        	name="statClassifies"
+        	table="StatisticClassify "
+        	lazy="true"
+        	inverse="true"
+        	cascade="all"
+        	order-by="categoryID">
+        	<key column="userID"/>
+        	<one-to-many
+        		class="StatisticClassify"
+        		/>
+        </set>
+        
+        <set 
+        	name="medias"
+        	table="Media "
+        	lazy="true"
+        	inverse="true"
+        	cascade="all"
+        	order-by="mediaID">
+        	<key column="userID"/>
+        	<one-to-many
+        		class="Media"
+        		/>
+        </set>
+        
+        <set 
+        	name="backgroundMusics"
+        	table="BackgroundMusic "
+        	lazy="true"
+        	inverse="true"
+        	cascade="all"
+        	order-by="bgMusicID">
+        	<key column="userID"/>
+        	<one-to-many
+        		class="BackgroundMusic"
+        		/>
+        </set>
+    </class>
+    
+	<class name="Blog" table="Blog">
+        <id name="blogID" column="blogID">
+            <generator class="native"/>
+        </id>
+        <property name="title" type="string" column="title"/>
+        <property name="message" type="string" column="message"/>
+        <many-to-one 
+        	name="user"
+        	class="User"
+        	cascade="all"
+        	outer-join="auto"
+        	fetch="join"
+        	column="userID"
+        />
+    </class>
+    
+    <class name="LifeStatus" table="LifeStatus">
+        <id name="lifeStatusID" column="lifeStatusID">
+            <generator class="native"/>
+        </id>
+        <property name="status" type="string" column="status"/>
+        <property name="createTime" type="timestamp" column="createTime"/>
+        <many-to-one 
+        	name="user"
+        	class="User"
+        	cascade="none"
+        	fetch="join"
+        	column="userID"
+        />
+    </class>
+    
+    <class name="StatisticActivity" table="StatisticActivity">
+        <id name="statActivityID" column="statActivityID">
+            <generator class="native"/>
+        </id>
+        <property name="statDate" type="timestamp" column="statDate"/>
+        <property name="articleCount" type="integer" column="articleCount"/>
+        <many-to-one 
+        	name="user"
+        	class="User"
+        	cascade="none"
+        	fetch="join"
+        	column="userID"
+        />
+    </class>
+    
+    <class name="ArticleCategory" table="ArticleCategory">
+        <id name="categoryID" column="categoryID">
+            <generator class="native"/>
+        </id>
+        <property name="categoryName" type="string" column="categoryName"/>
+
+        <many-to-one 
+        	name="user"
+        	class="User"
+        	cascade="none"
+        	fetch="join"
+        	column="userID"
+        />
+        
+         <many-to-one 
+        	name="parentCategory"
+        	class="ArticleCategory"
+        	cascade="none"
+        	fetch="join"
+        	column="parentID"
+        />
+        
+        <set 
+        	name="subCategories"
+        	table="ArticleCategory "
+        	lazy="true"
+        	inverse="true"
+        	cascade="all">
+        	<key column="parentID"/>
+        	<one-to-many
+        		class="ArticleCategory"
+        		/>
+        </set>
+        
+        <set 
+        	name="articles"
+        	table="Article "
+        	lazy="true"
+        	inverse="true"
+        	cascade="all"
+        	order-by="updateTime desc">
+        	<key column="categoryID"/>
+        	<one-to-many
+        		class="Article"
+        		/>
+        </set>
+        
+        <one-to-one 
+        	name="statClassfiy"
+        	class="StatisticClassify"
+        	cascade="all"
+        	outer-join="auto"
+        />
+    </class>
+    
+    <class name="Article" table="Article">
+        <id name="articleID" column="articleID">
+            <generator class="native"/>
+        </id>
+        <property name="articleTitle" type="string" column="articleTitle"/>
+		<property name="articleBrief" type="string" column="articleBrief"/>
+		<property name="articleContent" type="text" column="articleContent"/>
+		<property name="createTime" type="timestamp" column="createTime"/>
+		<property name="updateTime" type="timestamp" column="updateTime"/>
+		
+        <many-to-one 
+        	name="user"
+        	class="User"
+        	cascade="none"
+        	fetch="join"
+        	column="userID"
+        />
+        
+        <many-to-one 
+        	name="category"
+        	class="ArticleCategory"
+        	cascade="none"
+        	fetch="join"
+        	column="categoryID"
+        />
+    </class>
+    
+    <class name="StatisticClassify" table="StatisticClassify">
+        <id name="statClassifyID" column="statClassifyID">
+            <generator class="native"/>
+        </id>
+        <property name="percent" type="float" column="percent"/>
+
+		
+        <many-to-one 
+        	name="user"
+        	class="User"
+        	cascade="none"
+        	fetch="join"
+        	column="userID"
+        />
+        
+        <many-to-one 
+        	name="category"
+        	class="ArticleCategory"
+        	cascade="none"
+        	outer-join="auto"
+        	fetch="join"
+        	column="categoryID"
+        />
+    </class>
+    
+    <class name="DicMediaType" table="DicMediaType">
+        <id name="mediaTypeID" column="mediaTypeID">
+            <generator class="native"/>
+        </id>
+        <property name="mediaTypeName" type="string" column="mediaTypeName"/>
+        <property name="mediaTypeDisplayName" type="string" column="mediaTypeDisplayName"/>
+		
+		<set 
+        	name="medias"
+        	table="Media "
+        	lazy="true"
+        	inverse="true"
+        	cascade="all"
+        	order-by="mediaID">
+        	<key column="mediaTypeID"/>
+        	<one-to-many
+        		class="Media"
+        		/>
+        </set>
+    </class>
+    
+    <class name="Media" table="Media">
+        <id name="mediaID" column="mediaID">
+            <generator class="native"/>
+        </id>
+        <property name="mediaPath" type="string" column="mediaPath"/>
+		
+		<many-to-one 
+        	name="user"
+        	class="User"
+        	cascade="none"
+        	fetch="join"
+        	column="userID"
+        />
+        
+        <many-to-one 
+        	name="mediaType"
+        	class="DicMediaType"
+        	cascade="none"
+        	fetch="join"
+        	column="mediaTypeID"
+        />
+        
+        <one-to-one 
+        	name="backgroundMusic"
+        	class="BackgroundMusic"
+        	cascade="all"
+        	outer-join="auto"
+        />
+    </class>
+    
+    <class name="BackgroundMusic" table="BackgroundMusic">
+        <id name="bgMusicID" column="bgMusicID">
+            <generator class="native"/>
+        </id>
+        <property name="bgMusicName" type="string" column="bgMusicName"/>
+		
+		<many-to-one 
+        	name="user"
+        	class="User"
+        	cascade="none"
+        	fetch="join"
+        	column="userID"
+        />
+        
+        <many-to-one 
+        	name="media"
+        	class="Media"
+        	cascade="all"
+        	fetch="join"
+        	column="mediaID"
+        />
+    </class>
+</hibernate-mapping>

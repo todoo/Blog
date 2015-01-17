@@ -1,0 +1,30 @@
+<div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1">
+	<div class="col-lg-2 col-md-2 col-sm-2">		
+		<div class="row">
+			<div class="list-group"  data-bind="foreach: categoties().data">
+				<a class="list-group-item" data-bind="text: categoryName, css: {active: categoryID==$parent.categoties().activeCategoryID}, attr: { href: '#articles/category/'+categoryID }"></a>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-8 col-md-8 col-sm-8 my-xs-padding-0" data-bind="visible: selectedArticle().articleID<=0">
+		<div class="well my-bg-black-1 my-border-black-1" data-bind="foreach: articles()">
+			<div class="media well my-bg-black-3 my-border-black-3" >
+			  	<div class="media-body">
+			    	<h4 class="media-heading"><a data-bind="text: articleTitle,click: $parent.showArticle"></a>&nbsp;&nbsp;<small><i><span data-bind="text: updateTime"></span></i></small></h4>
+			    	<div data-bind="text: articleBrief"></div>
+			  	</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-8 col-md-8 col-sm-8 my-xs-padding-0" data-bind="visible: selectedArticle().articleID>0">
+		<div class="well my-bg-black-1 my-border-black-1">
+			<div><span class="cursor-pointer" data-bind="click: hideArticle">&nbsp;&nbsp;<i class="icon-remove-sign"></i>&nbsp;&nbsp;</span></div>
+			<h4 class="text-center"><span data-bind="text: selectedArticle().articleTitle"></span>&nbsp;&nbsp;<small><i><span data-bind="text: selectedArticle().updateTime"></span></i></small></h4>
+			<div class="well my-bg-black-3 my-border-black-3 my-font-style-italic" data-bind="text: selectedArticle().articleBrief"></div>
+			<div class="well my-bg-black-3 my-border-black-3"  data-bind="articleContent: selectedArticle().articleContent" id="articleContent"></div>
+		</div>
+	</div>
+	<div class="col-lg-2 col-md-2 col-sm-2">
+	
+	</div>
+</div>
