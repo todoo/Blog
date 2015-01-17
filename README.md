@@ -1,3 +1,4 @@
 # Blog
-framwork: SpringMVC Hibernate Mysql Durandal RequireJS KnockoutJS
-object: my blog project just for studing these technology 
+framwork: SpringMVC Hibernate Mysql Durandal RequireJS KnockoutJS<br/>
+management: Maven<br/>
+object: just for studing these technology 
