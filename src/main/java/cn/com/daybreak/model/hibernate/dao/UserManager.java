@@ -16,4 +16,11 @@ public interface UserManager {
 	 * @return
 	 */
 	public ResultInfo getUser(String urlID);
+	
+	/**
+	 * 通过userName获取用户信息
+	 * @param userName
+	 * @return
+	 */
+	public ResultInfo getUserByUserName(String userName);
 }

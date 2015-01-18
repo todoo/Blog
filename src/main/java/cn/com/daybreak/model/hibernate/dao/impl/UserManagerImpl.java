@@ -74,4 +74,34 @@ public class UserManagerImpl implements UserManager {
 		return result;
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public ResultInfo getUserByUserName(String userName) {
+		ResultInfo result = new ResultInfo(true);
+		try {
+			Session session = sf.getCurrentSession();
+			
+			session.beginTransaction();
+			
+			String hql = "from User where userName=:userName";
+			Query query = session.createQuery(hql);
+			query.setString("userName", userName);
+			List<User> users = query.list();
+			if (users.size()>0) {
+				result.addData("user", users.get(0));
+			} else {
+				result.setSuccess(false);
+				result.setMessage("用户不存在");
+			}
+			
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.setSuccess(false);
+			result.setMessage("获取用户信息异常");
+		}
+		
+		return result;
+	}
+
 }

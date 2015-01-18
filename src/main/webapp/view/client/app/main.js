@@ -31,12 +31,12 @@ requirejs.config({
             deps: ['highcharts/highcharts.src'],
             exports: 'Highcharts'
         },
-        'ueditor/ueditor.all': {
-            exports: 'UE'
-        },
         'ueditor/ueditor.config': {
-        	deps: ['ueditor/ueditor.all'],
             exports: 'UEDITOR_CONFIG'
+        },
+        'ueditor/ueditor.all': {
+        	deps: ['ueditor/ueditor.config'],
+            exports: 'UE'
         },
         'ueditor/ueditor.parse': {
         	deps: ['ueditor/ueditor.all'],

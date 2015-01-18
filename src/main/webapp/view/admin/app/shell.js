@@ -4,12 +4,12 @@ define(['plugins/router','plugins/http','knockout','jquery','bootstrap'],functio
 		router: router,
 		activate: function(){
 			router.map([{route:'',hash:'#',title:'Home',moduleId:'home/home',nav:true},
-			            {route:'articles(/category/:categoryID)',hash:'#articles',title:'Article',moduleId:'articles/articles',nav:true}]).buildNavigationModel();
+			            {route:'article',hash:'#article',title:'Article',moduleId:'article/article',nav:true}]).buildNavigationModel();
 
 			router.activate();
 			
 			var self = this;
-			http.get(ROOT_URL + "backgroundmusic/urlid/" + USER_URL_ID).then(function(data){
+			http.get(ROOT_URL + "admin/backgroundmusic").then(function(data){
 				if (data.success) {
 					self.backgroundMusicUrl(MEDIA_ROOT_URL + data.data.musicPath);
 				}

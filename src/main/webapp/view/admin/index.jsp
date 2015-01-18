@@ -23,7 +23,7 @@
 		<script>
 			var ROOT_URL = "${pageContext.request.contextPath}"+"/";
 			var MEDIA_ROOT_URL = ROOT_URL + "resources/";
-			var USER_URL_ID = "${user.urlID}";
+			window.UEDITOR_HOME_URL = ROOT_URL + "view/lib/ueditor/";
 		</script>
         <script src="<c:url value='/view/lib/require/require.js'/>" data-main="<c:url value='/view/admin/app/main.js'/>"></script>
     </body>

@@ -44,6 +44,9 @@ p,div{
 .my-fg-orange-f90{
 	background-color:#FF9900;
 }
+.my-fg-black-1{
+	color:#111111;
+}
 .my-border-black-1{
 	border:1px solid #111111;
 	box-shadow: 2px 2px 2px #222222 ;
