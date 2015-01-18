@@ -38,5 +38,6 @@
 	</bean> 
 	
 	<!-- spring mvc对静态资源的访问-->    
-    <mvc:resources location="/WEB-INF/resources/" mapping="/resources/**"/>  
+    <mvc:resources location="/WEB-INF/resources/" mapping="/resources/**"/>
+    <mvc:resources location="/view/lib/" mapping="/view/lib/**"/>   
 </beans>

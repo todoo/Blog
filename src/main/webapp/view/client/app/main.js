@@ -34,8 +34,11 @@ requirejs.config({
         'ueditor/ueditor.config': {
             exports: 'UEDITOR_CONFIG'
         },
+        'ueditor/third-party/zeroclipboard/ZeroClipboard': {
+            exports: 'ZeroClipboard'
+        },
         'ueditor/ueditor.all': {
-        	deps: ['ueditor/ueditor.config'],
+        	deps: ['ueditor/ueditor.config','ueditor/third-party/zeroclipboard/ZeroClipboard'],
             exports: 'UE'
         },
         'ueditor/ueditor.parse': {
@@ -57,7 +60,7 @@ define(['durandal/system', 'durandal/app'],  function (system, app) {
     });
 	//setTimeout(function(){
 		app.start().then(function () {
-			app.setRoot('shell','entrance');
+			app.setRoot('shell');
 		});
 	//},3000);
 });

@@ -1,5 +1,5 @@
-    define(['jquery','durandal/composition','plugins/router', 'knockout', 'plugins/http', 'tools/DateUtils','ueditor/ueditor.config','ueditor/ueditor.all','ueditor/ueditor.parse'], 
-    		function($,composition,router, ko, http, dateUtils,UEDITOR_CONFIG,UE,uParse) {
+    define(['jquery','durandal/composition','plugins/router', 'knockout', 'plugins/http', 'tools/DateUtils','ueditor/ueditor.parse'], 
+    		function($,composition,router, ko, http, dateUtils,uParse) {
     	
     	var viewModel = function(){
     		var self = this;
