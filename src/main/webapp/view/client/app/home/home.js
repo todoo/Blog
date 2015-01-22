@@ -1,6 +1,6 @@
 define(['jquery','durandal/composition','durandal/system','plugins/http','plugins/dialog','knockout','tools/DateUtils','highcharts/highcharts.src','highcharts/themes/gray'],function ($,composition,system,http,dialog,ko,dateUtils) {
 	return {
-		user: ko.observable({nickName:''}),
+		user: ko.observable({nickName:'',logo:''}),
 		lifeStatus: ko.observable({status:'',createTime:''}),
 		activityChartData: ko.observable({}),
 		classifyChartData: ko.observable({}),
@@ -137,6 +137,7 @@ define(['jquery','durandal/composition','durandal/system','plugins/http','plugin
 			var self = this;
 			
 			http.get(ROOT_URL + "user/urlid/" + USER_URL_ID).then(function(data){
+				data.data.user.logo = MEDIA_ROOT_URL + data.data.user.logo;
 				self.user(data.data.user);
 			},function(error){
 				dialog.showMessage(error,'error',['close'],true);

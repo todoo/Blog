@@ -11,7 +11,7 @@
 			<div class="media well my-bg-black-3 my-border-black-3" >
 			  	<div class="media-body">
 			    	<h4 class="media-heading"><a data-bind="text: articleTitle,click: $parent.showArticle"></a>&nbsp;&nbsp;<small><i><span data-bind="text: updateTime"></span></i></small></h4>
-			    	<div data-bind="text: articleBrief"></div>
+			    	<div data-bind="html: articleBrief"></div>
 			  	</div>
 			</div>
 		</div>
@@ -20,7 +20,7 @@
 		<div class="well my-bg-black-1 my-border-black-1">
 			<div><span class="cursor-pointer" data-bind="click: hideArticle">&nbsp;&nbsp;<i class="icon-remove-sign"></i>&nbsp;&nbsp;</span></div>
 			<h4 class="text-center"><span data-bind="text: selectedArticle().articleTitle"></span>&nbsp;&nbsp;<small><i><span data-bind="text: selectedArticle().updateTime"></span></i></small></h4>
-			<div class="well my-bg-black-3 my-border-black-3 my-font-style-italic" data-bind="text: selectedArticle().articleBrief"></div>
+			<div class="well my-bg-black-3 my-border-black-3 my-font-style-italic" data-bind="html: selectedArticle().articleBrief"></div>
 			<div class="well my-bg-black-3 my-border-black-3"  data-bind="articleContent: selectedArticle().articleContent" id="articleContent"></div>
 		</div>
 	</div>

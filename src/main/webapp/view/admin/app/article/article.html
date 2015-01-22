@@ -1,8 +1,10 @@
 <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1">
 	<div class="col-lg-2 col-md-2 col-sm-2">
 		<div class="row">
-			<div class="well my-bg-black-1 my-border-black-1 ">
-				hello
+			<div class="list-group" data-bind="foreach: categories().data">
+			  <a class="list-group-item clearfix" data-bind="css: {active: categoryID==$parent.categories().selectCategoryID()}, click: $parent.selectCategory">
+			    <span class="col-xs-10" data-bind="text: categoryName"></span><input class="col-xs-2 pull-right" type="radio" name="categoryID" data-bind="attr: {value: categoryID}, checked: $parent.categories().selectCategoryID()+''"/>
+			  </a>
 			</div>
 		</div>
 	</div>
@@ -10,14 +12,15 @@
 		<div class="well my-bg-black-1 my-border-black-1 " data-bind="ueditorInit">
 			<div class="input-group" style="margin-bottom:10px;">
 			  	<span class="input-group-addon">标题</span>
-			  	<input type="text" class="form-control" placeholder="标题">
+			  	<input type="text" class="form-control" placeholder="标题" data-bind="value:article().articleTitle, valueUpdate:'afterkeydown', event:{keyup:setEnableSubmit}">
 			</div>
 			<div class="input-group"  style="margin-bottom:10px;">
 			  	<span class="input-group-addon">简介</span>
-			  	<textarea class="form-control" placeholder="简介"></textarea>
+			  	<textarea class="form-control" placeholder="简介" data-bind="value: article().articleBrief, valueUpdate:'afterkeydown', event:{keyup:setEnableSubmit}"></textarea>
 			</div>
 			<script id="ueditorContent" class="my-fg-black-1" name="content" type="text/plain">
     		</script>
+    		<div class="text-center" style="margin-top:10px;"><button class="btn btn-primary" data-bind="enable:enableSubmit, click:submitArticle">提交</button></div>
 		</div>
 	</div>
 </div>
