@@ -29,7 +29,7 @@ public class ArticleController {
 	
 	@RequestMapping(value ="/add",method=RequestMethod.POST)
 	@ResponseBody
-	public ResultInfo getarticles(HttpServletRequest req,HttpServletResponse resp, @RequestBody String postData){
+	public ResultInfo addarticle(HttpServletRequest req,HttpServletResponse resp, @RequestBody String postData){
 		String userName = SecurityUserInfoUtil.getUsername();
 		JSONObject articleJson = JSONObject.fromObject(postData);
 		int categoryID = articleJson.getInt("categoryID");

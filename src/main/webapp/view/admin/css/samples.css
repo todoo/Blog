@@ -27,6 +27,22 @@ a.list-group-item.active, a.list-group-item.active:hover, a.list-group-item.acti
 	background-color: #FF6600;
 	border-color: #FF6600;
 }
+.dropdown-menu{
+	background-color:#666666;
+}
+.dropdown-menu>li>a{
+	color:#CCCCCC;
+}
+.dropdown-menu>li>a:hover{
+	color: #ffffff;
+    background-color: #222222; 
+}
+.dropdown-menu>.active>a, 
+.dropdown-menu>.active>a:hover, 
+.dropdown-menu>.active>a:focus{
+	color: #ffffff;
+    background-color: #111111; 
+}
 
 p,div{
 	word-wrap:break-word !important;

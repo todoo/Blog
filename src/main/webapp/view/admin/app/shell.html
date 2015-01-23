@@ -12,10 +12,28 @@
 		</div>
 
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-		  <ul class="nav navbar-nav"  data-bind="foreach: router.navigationModel">
+		  <ul class="nav navbar-nav">
+		  		<!-- ko foreach: router.navigationModel -->
 				<li data-bind="css: { active: isActive }">
+					<!-- ko if: moduleId.substr(0,7) != 'article' -->
 					<a data-bind="attr: { href: hash }, html: title"></a>
+					<!-- /ko -->
 				</li>
+				<!-- /ko -->
+				
+				<li class="dropdown article-dropdown-navbar">
+          			<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Article<span class="caret"></span></a>
+		            <ul class="dropdown-menu" role="menu">
+			          	<!-- ko foreach: router.navigationModel -->
+				          	<!-- ko if: moduleId == 'article/add'-->
+				          		<li data-bind="css: { active: isActive }"><a data-bind="attr: { href: hash }"><i class="icon-plus-sign my-fg-white-c"></i>&nbsp;&nbsp;<span data-bind="html: title"></span></a></li>
+				          	<!-- /ko -->
+				          	<!-- ko if: moduleId == 'article/update'-->
+				          		<li data-bind="css: { active: isActive }"><a data-bind="attr: { href: hash }"><i class=" icon-edit my-fg-white-c"></i>&nbsp;&nbsp;<span data-bind="html: title"></span></a></li>
+				          	<!-- /ko -->
+			            <!-- /ko -->
+		            </ul>
+        		</li>
 		  </ul>
 		  <ul class="nav navbar-nav navbar-right">
 			<li>

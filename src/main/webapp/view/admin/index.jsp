@@ -22,8 +22,10 @@
 		</div>
 		<script>
 			var ROOT_URL = "${pageContext.request.contextPath}"+"/";
+			var CONTEXT_PATH = "\\" + "${pageContext.request.contextPath}\\/";
 			var MEDIA_ROOT_URL = ROOT_URL + "resources/";
 			window.UEDITOR_HOME_URL = ROOT_URL + "view/lib/ueditor/";
+			window.UEDITOR_SERVER_ROOT_URL = ROOT_URL;
 		</script>
         <script src="<c:url value='/view/lib/require/require.js'/>" data-main="<c:url value='/view/admin/app/main.js'/>"></script>
     </body>

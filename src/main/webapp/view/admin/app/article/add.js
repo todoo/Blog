@@ -58,7 +58,7 @@ function ($,composition,http,ko,UE,dialog) {
 				if (data.success) {
 					self._resetForm();
 				} else {
-					dialog.showMessage("添加失败","错误",["关闭"],true);
+					dialog.showMessage("添加失败", "错误", ["关闭"], true);
 				}
 			},function(error){
 				
@@ -69,7 +69,11 @@ function ($,composition,http,ko,UE,dialog) {
 	        init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
     	        self.ueditor = UE.getEditor('ueditorContent');
     	        self.ueditor.addListener('contentChange', function(editor) {
-    	        	self.article().articleContent = self.ueditor.getContent();
+	        		var pattern = new RegExp('src="(' + CONTEXT_PATH + ')[\/a-zA-Z0-9\.]*"', "g");
+	        		self.article().articleContent = self.ueditor.getContent().replace(pattern,function(substr, match) {
+    	        		return substr.replace(match,"");
+    	        	});
+    	        	
     	            self.setEnableSubmit();
     	        });
 	        },

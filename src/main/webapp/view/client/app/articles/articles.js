@@ -23,7 +23,11 @@
     	        },
     	        update:function(element, valueAccessor, allBindings, viewModel, bindingContext){
     	        	var data = valueAccessor();
+    	        	data = data.replace(/src="([\/a-zA-Z0-9\.]*)"/g, function(substr, match) {
+    	        		return substr.replace(match ,ROOT_URL + match);
+    	        	});
     	        	$(element).html(data);
+    	        	$(element).find("img").addClass("img-responsive");
     	        	try {
     	        		if(typeof data != undefined && data != null && data != "")
     	        			uParse('#articleContent', {rootPath: ROOT_URL+"view/lib/ueditor/"});
