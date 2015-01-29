@@ -21,6 +21,8 @@ public class ArticleCategory implements Serializable {
 	private Set<Article> articles = new HashSet<Article>();
 	private StatisticClassify statClassfiy;
 	
+	private int articleCount;//类目及其子类目共包含多少博文
+	
 	public int getCategoryID() {
 		return categoryID;
 	}
@@ -80,6 +82,14 @@ public class ArticleCategory implements Serializable {
 
 	public void setStatClassfiy(StatisticClassify statClassfiy) {
 		this.statClassfiy = statClassfiy;
+	}
+
+	public int getArticleCount() {
+		return articleCount;
+	}
+
+	public void setArticleCount(int articleCount) {
+		this.articleCount = articleCount;
 	}
 	
 }

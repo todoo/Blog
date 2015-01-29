@@ -43,6 +43,9 @@ a.list-group-item.active, a.list-group-item.active:hover, a.list-group-item.acti
 	color: #ffffff;
     background-color: #111111; 
 }
+button[disabled]{
+	background-color:grey;
+}
 
 p,div{
 	word-wrap:break-word !important;

@@ -1,10 +1,12 @@
 <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1">
 	<div class="col-lg-2 col-md-2 col-sm-2">
 		<div class="row">
-			<div class="list-group" data-bind="foreach: categories().data">
-			  <a class="list-group-item clearfix" data-bind="css: {active: categoryID==$parent.categories().selectCategoryID()}, click: $parent.selectCategory">
-			    <span class="col-xs-10" data-bind="text: categoryName"></span><input class="col-xs-2 pull-right" type="radio" name="categoryID" data-bind="attr: {value: categoryID}, checked: $parent.categories().selectCategoryID()+''"/>
-			  </a>
+			<div class="list-group">
+				<!-- ko foreach: categories().data -->
+			  	<a class="list-group-item clearfix cursor-pointer" data-bind="css: {active: categoryID==$parent.categories().selectCategoryID()}, click: $parent.selectCategory">
+			    	<span class="col-xs-10" data-bind="text: categoryName"></span><input class="col-xs-2 pull-right" type="radio" name="categoryID" data-bind="attr: {value: categoryID}, checked: $parent.categories().selectCategoryID()+''"/>
+			  	</a>
+			   	<!-- /ko -->
 			</div>
 		</div>
 	</div>
@@ -18,7 +20,7 @@
 			  	<span class="input-group-addon">简介</span>
 			  	<textarea class="form-control" placeholder="简介" data-bind="value: article().articleBrief, valueUpdate:'afterkeydown', event:{keyup:setEnableSubmit}"></textarea>
 			</div>
-			<script id="ueditorContent" class="my-fg-black-1" name="content" type="text/plain">
+			<script id="addUeditorContent" class="my-fg-black-1" name="content" type="text/plain">
     		</script>
     		<div class="text-center" style="margin-top:10px;"><button class="btn btn-primary" data-bind="enable:enableSubmit, click:submitArticle">提交</button></div>
 		</div>

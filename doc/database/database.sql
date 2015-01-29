@@ -50,7 +50,7 @@ create table Article(
 	categoryID integer not null,
 	articleTitle varchar(20) not null,
 	articleBrief varchar(500),
-	articleContent text not null,
+	articleContent mediumtext not null,
 	createTime datetime not null,
 	updateTime datetime not null,
 	primary key(articleID)

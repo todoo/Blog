@@ -1,5 +1,5 @@
-define(['jquery','durandal/composition','plugins/http','knockout','ueditor/ueditor.all','plugins/dialog'],
-function ($,composition,http,ko,UE,dialog) {
+define(['jquery','durandal/composition','plugins/http','knockout','ueditor/ueditor.all','plugins/dialog','tools/MsgTip'],
+function ($,composition,http,ko,UE,dialog,msgTip) {
 	var viewModel = function() {
 		var self = this;
 		this.ueditor = null;
@@ -42,12 +42,17 @@ function ($,composition,http,ko,UE,dialog) {
 			self.ueditor.setContent("");
 			self.setEnableSubmit();
 		};
-		this.submitArticle = function() {
+		this.submitArticle = function(data, event) {
 			//提交博文
 			if (!self.enableSubmit()) {
 				//不满足提交条件
 				return;
 			}
+			
+			//禁用提交按钮
+			self._isSubmitting = true;
+			self.setEnableSubmit();
+			
 			var article = {};
 			article.categoryID = self.categories().selectCategoryID();
 			article.articleTitle = self.article().articleTitle();
@@ -57,17 +62,27 @@ function ($,composition,http,ko,UE,dialog) {
 			http.post(ROOT_URL + "admin/article/add",article,header).then(function(data){
 				if (data.success) {
 					self._resetForm();
+					msgTip.showSuccessTip("保存成功", {
+						width: 200,
+						top: $(event.currentTarget).position().top - $(document).scrollTop() 
+					});
 				} else {
 					dialog.showMessage("添加失败", "错误", ["关闭"], true);
 				}
-			},function(error){
 				
+				//恢复提交按钮
+				self._isSubmitting = false;
+				self.setEnableSubmit();
+			},function(error){
+				//恢复提交按钮
+				self._isSubmitting = false;
+				self.setEnableSubmit();
 			});
 		};
 		
 		composition.addBindingHandler('ueditorInit',{
 	        init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
-    	        self.ueditor = UE.getEditor('ueditorContent');
+    	        self.ueditor = UE.getEditor('addUeditorContent');
     	        self.ueditor.addListener('contentChange', function(editor) {
 	        		var pattern = new RegExp('src="(' + CONTEXT_PATH + ')[\/a-zA-Z0-9\.]*"', "g");
 	        		self.article().articleContent = self.ueditor.getContent().replace(pattern,function(substr, match) {
@@ -89,7 +104,6 @@ function ($,composition,http,ko,UE,dialog) {
 			self.categories({data:[],selectCategoryID:ko.observable(-1)});
 			self.article = ko.observable({articleTitle:ko.observable(''),articleBrief:ko.observable(''),articleContent:''});
 			self._isSubmitting = false;
-			self.dis
 		};
 		
 		this.activate = function() {

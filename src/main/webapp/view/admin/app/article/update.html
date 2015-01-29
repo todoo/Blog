@@ -1,0 +1,41 @@
+<div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1">
+	<div class="col-lg-2 col-md-2 col-sm-2">
+		<div class="row">
+			<div class="list-group">
+				<!-- ko foreach: categories().data -->
+			  	<a class="list-group-item" data-bind="css: {active: categoryID==$parent.categories().selectCategoryID}, attr: { href: '#article/update/category/'+categoryID }"><span data-bind="text: categoryName"></span><span class="badge" data-bind="text:articleCount"></span></a>
+			   	<!-- /ko -->
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-8 col-md-8 col-sm-8 my-xs-padding-0" data-bind="visible: selectedArticle().articleID<=0">
+		<div class="well my-bg-black-1 my-border-black-1" data-bind="foreach: articles()">
+			<div class="list-group pull-left">
+				<button class="list-group-item cursor-pointer" style="width:46px;" data-bind="click: $parent.fcShowArticle"><i class="icon-edit"></i></button>
+				<button class="list-group-item cursor-pointer" style="width:46px;" data-bind="enable: deleteEnable(), click: $parent.fcDeleteArticle"><i class="icon-trash"></i></button>
+			</div>
+			<div class="media well my-bg-black-3 my-border-black-3" style="margin-top:0;">
+			  	<div class="media-body">
+			    	<h4 class="media-heading"><a data-bind="text: articleTitle"></a>&nbsp;&nbsp;<small><i><span data-bind="text: updateTime"></span></i></small></h4>
+			    	<div data-bind="html: articleBrief"></div>
+			  	</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-10 col-md-10 col-sm-10 my-xs-padding-0" data-bind="visible: selectedArticle().articleID>0">
+		<div class="well my-bg-black-1 my-border-black-1" data-bind="ueditorUpdate">
+			<div><span class="cursor-pointer" data-bind="click: fcHideArticle">&nbsp;&nbsp;<i class="icon-remove-sign"></i>&nbsp;&nbsp;</span></div>
+			<div class="input-group" style="margin-bottom:10px;">
+			  	<span class="input-group-addon">标题</span>
+			  	<input type="text" class="form-control" placeholder="标题" data-bind="value:selectedArticle().articleTitle, valueUpdate:'afterkeydown', event:{keyup:fcSetEnableSubmit}">
+			</div>
+			<div class="input-group"  style="margin-bottom:10px;">
+			  	<span class="input-group-addon">简介</span>
+			  	<textarea class="form-control" placeholder="简介" data-bind="value: selectedArticle().articleBrief, valueUpdate:'afterkeydown', event:{keyup:fcSetEnableSubmit}"></textarea>
+			</div>
+			<script id="updateUeditorContent" class="my-fg-black-1" name="content" type="text/plain">
+    		</script>
+    		<div class="text-center" style="margin-top:10px;"><button class="btn btn-primary" data-bind="enable: enableSubmit, click: fcSubmitArticle">提交</button></div>
+		</div>
+	</div>
+</div>

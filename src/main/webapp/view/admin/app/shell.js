@@ -5,7 +5,7 @@ define(['plugins/router','plugins/http','knockout','jquery','bootstrap'],functio
 		activate: function() {
 			router.map([{route:'', hash:'#', title:'Home', moduleId:'home/home', nav:true},
 			            {route:'article/add', hash:'#article/add', title:'Add', moduleId:'article/add', nav:true},
-			            {route:'article/update', hash:'#article/update', title:'Update', moduleId:'article/update', nav:true}]).buildNavigationModel();
+			            {route:'article/update(/category/:categoryID)', hash:'#article/update', title:'Update', moduleId:'article/update', nav:true}]).buildNavigationModel();
 			router.on("router:route:activating", function(viewModel, routerItem, router) {
 				var moduleId = routerItem.config.moduleId;
 				if (moduleId.substr(0,7) == "article") {

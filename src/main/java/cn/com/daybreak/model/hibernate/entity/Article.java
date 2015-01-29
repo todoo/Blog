@@ -21,6 +21,8 @@ public class Article implements Serializable {
 	private Date createTime;
 	private Date updateTime;
 	
+	private int categoryID;
+	
 	public int getArticleID() {
 		return articleID;
 	}
@@ -85,6 +87,14 @@ public class Article implements Serializable {
 	
 	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
+	}
+
+	public int getCategoryID() {
+		return categoryID;
+	}
+
+	public void setCategoryID(int categoryID) {
+		this.categoryID = categoryID;
 	}
 	
 }

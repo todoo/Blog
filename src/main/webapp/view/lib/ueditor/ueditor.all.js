@@ -17492,7 +17492,7 @@ UE.plugins['autofloat'] = function() {
             if(toolbarBox.style.position != 'absolute'){
                 toolbarBox.style.position = 'absolute';
             }
-            toolbarBox.style.top = (document.body.scrollTop||document.documentElement.scrollTop) - orgTop + topOffset  + 'px';
+            toolbarBox.style.top = (document.body.scrollTop||document.documentElement.scrollTop) - orgTop + topOffset + 50 + 'px';
         } else {
             if (browser.ie7Compat && flag) {
                 flag = false;
@@ -17500,7 +17500,7 @@ UE.plugins['autofloat'] = function() {
             }
             if(toolbarBox.style.position != 'fixed'){
                 toolbarBox.style.position = 'fixed';
-                toolbarBox.style.top = topOffset +"px";
+                toolbarBox.style.top = (topOffset + 50) +"px";
                 ((origalFloat == 'absolute' || origalFloat == 'relative') && parseFloat(origalLeft)) && (toolbarBox.style.left = toobarBoxPos.x + 'px');
             }
         }

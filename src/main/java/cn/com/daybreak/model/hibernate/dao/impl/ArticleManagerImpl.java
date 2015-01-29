@@ -51,6 +51,10 @@ public class ArticleManagerImpl implements ArticleManager {
 				articles = new ArrayList<Article>(articleCategory.getArticles());
 			}
 			
+			for(int i=0; i<articles.size(); ++i) {
+				articles.get(i).setCategoryID(articles.get(i).getCategory().getCategoryID());
+			}
+			
 			result.addData("articles", articles);
 			
 			session.getTransaction().commit();
@@ -99,6 +103,67 @@ public class ArticleManagerImpl implements ArticleManager {
 			e.printStackTrace();
 			result.setSuccess(false);
 			result.setMessage("新增博文异常");
+		}
+		return result;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public ResultInfo deleteArticleByUserNameAndArticleID(String userName,
+			int articleID) {
+		ResultInfo result = new ResultInfo(true);
+		try {
+			Session session = sf.getCurrentSession();
+			session.beginTransaction();
+			
+			String hql = "from User a where a.userName=:userName";
+			Query query = session.createQuery(hql);
+			query.setString("userName", userName);
+			List<User> users = query.list();
+			if (users.size()<=0) {
+				throw new Exception();
+			}
+			
+			Article article = (Article) session.load(Article.class, articleID);
+			
+			//检验博文用户与登陆用户是否一致
+			if (!article.getUser().getUserName().equals(userName)) {
+				throw new Exception();
+			}
+			
+			session.delete(article);
+			
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.setSuccess(false);
+			result.setMessage("删除博文异常");
+		}
+		return result;
+	}
+
+	@Override
+	public ResultInfo updateArticleByUserName(String userName, Article article) {
+		ResultInfo result = new ResultInfo(true);
+		try {
+			Session session = sf.getCurrentSession();
+			session.beginTransaction();
+			
+			Article oldArticle = (Article) session.load(Article.class, article.getArticleID());
+			if (!oldArticle.getUser().getUserName().equals(userName)) {
+				//博文与登陆用户不匹配
+				throw new Exception();
+			}
+			
+			oldArticle.setArticleTitle(article.getArticleTitle());
+			oldArticle.setArticleBrief(article.getArticleBrief());
+			oldArticle.setArticleContent(article.getArticleContent());
+			
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.setSuccess(false);
+			result.setMessage("更新博文异常");
 		}
 		return result;
 	}

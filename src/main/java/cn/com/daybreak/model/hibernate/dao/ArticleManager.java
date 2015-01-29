@@ -20,4 +20,20 @@ public interface ArticleManager {
 	 * @return
 	 */
 	public ResultInfo addArticleByUserName(String userName, int categoryID, Article article);
+	
+	/**
+	 * 删除博文
+	 * @param userName
+	 * @param articleID
+	 * @return
+	 */
+	public ResultInfo deleteArticleByUserNameAndArticleID(String userName, int articleID);
+	
+	/**
+	 * 更新博文
+	 * @param userName
+	 * @param article
+	 * @return
+	 */
+	public ResultInfo updateArticleByUserName(String userName, Article article);
 }

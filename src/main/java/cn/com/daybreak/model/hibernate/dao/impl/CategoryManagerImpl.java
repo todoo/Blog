@@ -1,5 +1,6 @@
 package cn.com.daybreak.model.hibernate.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.SQLQuery;
@@ -34,6 +35,10 @@ public class CategoryManagerImpl implements CategoryManager{
 			
 			articleCategories = sqlQuery.addEntity(ArticleCategory.class).list();
 			
+			for (int i=0; i<articleCategories.size(); ++i) {
+				articleCategories.get(i).setArticleCount(getArticleCountByCategory(articleCategories.get(i)));
+			}
+			
 			result.addData("categories", articleCategories);
 
 			session.getTransaction().commit();
@@ -44,6 +49,24 @@ public class CategoryManagerImpl implements CategoryManager{
 			result.setMessage("获取类目列表异常");
 		}
 		return result;
+	}
+	
+	/**
+	 * 获取某一类目及其子类目的所有博文数目，必须在session开启范围里调用
+	 * @param category
+	 * @return
+	 */
+	private int getArticleCountByCategory(ArticleCategory category) {
+		if (category.getSubCategories().size()<=0) {
+			return category.getArticles().size();
+		}
+		int sum = category.getArticles().size();
+		List<ArticleCategory> subCategories = new ArrayList<ArticleCategory>(category.getSubCategories());
+		for(int i=0; i<subCategories.size(); ++i) {
+			sum += getArticleCountByCategory(subCategories.get(i));
+		}
+		
+		return sum;
 	}
 
 }
