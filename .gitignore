@@ -42,14 +42,8 @@ Temporary Items
 .apdisk
 
 
-src/main/webapp/classes/
-src/main/webapp/m2e-wtp/
-src/main/webapp/maven-archiver/
 src/main/webapp/META-INF/
-src/main/webapp/blog.war
 src/main/webapp/WEB-INF/classes/
 src/main/webapp/WEB-INF/lib/
-target/classes/
-target/m2e-wtp/
-target/maven-archiver/
-target/blog.war
+!target/readme
+target/

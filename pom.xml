@@ -15,10 +15,10 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-    	<groupId>javax.servlet</groupId>
-    	<artifactId>servlet-api</artifactId>
-    	<version>3.0</version>
-    </dependency>
+		<groupId>javax.servlet</groupId>
+		<artifactId>javax.servlet-api</artifactId>
+		<version>3.1.0</version>
+	</dependency>
     <dependency>
     	<groupId>org.springframework</groupId>
     	<artifactId>spring-context</artifactId>
@@ -99,7 +99,16 @@
   <build>
     <finalName>blog</finalName>
     <defaultGoal>package</defaultGoal>
-    <plugins>    
+    <plugins>   
+    	<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-compiler-plugin</artifactId>
+			<version>3.2</version>
+			<configuration>
+				<source>1.8</source>
+				<target>1.8</target>
+			</configuration>
+		</plugin> 
          <!-- 更改maven默认的打包目录 -->
         <plugin>
         	<groupId>org.apache.maven.plugins</groupId> 
@@ -107,7 +116,8 @@
            	<version>2.5</version>
            	<configuration>
                	<webappDirectory>src/main/webapp</webappDirectory>
-               	<warSourceDirectory>target</warSourceDirectory>
+               	<warSourceDirectory>src/main/webapp</warSourceDirectory>
+               	<outputDirectory>target</outputDirectory>
            	</configuration>
        	</plugin>      
     </plugins>
