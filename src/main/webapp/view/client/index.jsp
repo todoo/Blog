@@ -15,6 +15,7 @@
         <link rel="stylesheet" href="<c:url value='/view/lib/font-awesome/css/font-awesome.min.css'/>" />
         <link rel="stylesheet" href="<c:url value='/view/lib/durandal/css/durandal.css'/>" />
         <link rel="stylesheet" href="<c:url value='/view/client/css/samples.css'/>" />
+        <link rel="stylesheet" href="<c:url value='/view/lib/webSocketChart/chartRoom.css'/>" />
     </head>
     <body class="my-bg-black-3 my-fg-white-c">
         <div id="applicationHost">
@@ -46,6 +47,7 @@
 				</div>
 			</div>
 		</div>
+		
 		<script>
 			var height = window.innerHeight;
 			document.getElementById("splash").style.height=height+"px";
@@ -53,6 +55,7 @@
 			var MEDIA_ROOT_URL = ROOT_URL + "resources/";
 			var USER_URL_ID = "${user.urlID}";
 			window.UEDITOR_HOME_URL = ROOT_URL + "view/lib/ueditor/";
+			var CHART_ROOM_WEBSOCKET_ADDR = ROOT_URL + "chartroom/urlid/" + USER_URL_ID;
 		</script>
         <script src="<c:url value='/view/lib/require/require.js'/>" data-main="<c:url value='/view/client/app/main.js'/>"></script>
     </body>

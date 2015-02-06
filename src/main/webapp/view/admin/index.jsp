@@ -15,6 +15,7 @@
         <link rel="stylesheet" href="<c:url value='/view/lib/font-awesome/css/font-awesome.min.css'/>" />
         <link rel="stylesheet" href="<c:url value='/view/lib/durandal/css/durandal.css'/>" />
         <link rel="stylesheet" href="<c:url value='/view/admin/css/samples.css'/>" />
+        <link rel="stylesheet" href="<c:url value='/view/lib/webSocketChart/chartRoom.css'/>" />
     </head>
     <body class="my-bg-black-3 my-fg-white-c">
         <div id="applicationHost">
@@ -26,6 +27,7 @@
 			var MEDIA_ROOT_URL = ROOT_URL + "resources/";
 			window.UEDITOR_HOME_URL = ROOT_URL + "view/lib/ueditor/";
 			window.UEDITOR_SERVER_ROOT_URL = ROOT_URL;
+			var CHART_ROOM_WEBSOCKET_ADDR = ROOT_URL + "/admin/chartroom/urlid/" + "${user.urlID}";
 		</script>
         <script src="<c:url value='/view/lib/require/require.js'/>" data-main="<c:url value='/view/admin/app/main.js'/>"></script>
     </body>

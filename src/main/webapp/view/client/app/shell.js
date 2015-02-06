@@ -1,4 +1,4 @@
-define(['plugins/router','plugins/http','knockout','jquery','bootstrap'],function (router,http,ko,$) {
+define(['plugins/router','plugins/http','knockout','jquery','webSocketChart','bootstrap'],function (router,http,ko,$,webSocketChart) {
 	return {
 		backgroundMusicUrl: ko.observable(),
 		router: router,
@@ -17,6 +17,8 @@ define(['plugins/router','plugins/http','knockout','jquery','bootstrap'],functio
 			},function(error){
 				
 			});
+			
+			webSocketChart.init({sockjsAddr: CHART_ROOM_WEBSOCKET_ADDR});
 		}
 	};
 	

@@ -16,7 +16,9 @@ requirejs.config({
         'jquery': '../../lib/jquery/jquery-1.9.1',
         'tools': '../../lib/tools',
         'highcharts': '../../lib/highcharts',
-        'ueditor': '../../lib/ueditor'
+        'ueditor': '../../lib/ueditor',
+        'sockjs': '../../lib/SockJS/sockjs',
+        'webSocketChart': '../../lib/webSocketChart/chartRoom'
     },
 	shim: {
         'bootstrap': {

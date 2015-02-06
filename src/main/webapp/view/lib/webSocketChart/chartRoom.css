@@ -1,0 +1,31 @@
+.chart-room{
+	position:fixed;
+	display:table;
+}
+.chart-room-float-btn{
+	display:table-cell;
+	background-color:#5cb85c;
+	border-top-left-radius:3px;
+	border-bottom-left-radius:3px;
+	color:white;
+	vertical-align: middle;
+	cursor:pointer;
+}
+.chart-room-float-dialog{
+	display:table-cell;
+}
+.chart-room-float-dialog-content{
+	background-color:#d9edf7 !important;
+	cursor:auto !important;
+	height: 200px;
+	overflow-y:scroll;
+}
+.chart-room-client-status-disconnect{
+	background-color: #999;
+}
+.chart-room-client-status-connectting{
+	background-color: #337ab7;
+}
+.chart-room-client-status-connectted{
+	background-color: #5cb85c;
+}

@@ -22,6 +22,12 @@ a.list-group-item.active, a.list-group-item.active:hover, a.list-group-item.acti
 	background-color:#FF6600;
 	border-color:#FF6600;
 }
+.btn-primary.disabled, 
+.btn-primary[disabled]{
+	background-color: #FF6600;
+	border-color: #FF6600;
+}
+
 code{
 	white-space: pre-line !important; 
 	word-wrap: break-word !important; 
