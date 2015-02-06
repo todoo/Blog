@@ -9,6 +9,7 @@ import java.util.List;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -24,6 +25,8 @@ import cn.com.daybreak.common.tools.UrlUtils;
 public class ChartRoomVisitorHandler extends TextWebSocketHandler{
 	@Autowired
 	private ChartRoomList chartRooms;
+	
+	private Logger logger = Logger.getLogger(ChartRoomVisitorHandler.class);
 	
 	@Override
 	public void handleTextMessage(WebSocketSession session, TextMessage message) {
@@ -41,7 +44,7 @@ public class ChartRoomVisitorHandler extends TextWebSocketHandler{
 		String nickName = chartRoomClient.getNickName();
 		String clientIp = chartRoomClient.getIp();
 
-		System.out.println("handleTextMessage: " + session.getId() + "-" + nickName + "-" + message.getPayload());
+		logger.info("handleTextMessage: " + session.getId() + "-" + nickName + "-" + message.getPayload());
 		
 		//向所有该聊天室中的客户端群发收到的消息		
 		ChartRoom chartRoom = chartRooms.getChartRoom(urlID);
@@ -69,7 +72,7 @@ public class ChartRoomVisitorHandler extends TextWebSocketHandler{
 		//获取昵称
 		String nickName = UrlUtils.getPathParamValue(session.getUri().getPath(), "nickname");
 		
-		System.out.println("afterConnectionEstablished: " + sessionID + "-" + nickName);
+		logger.info("afterConnectionEstablished: " + sessionID + "-" + nickName);
 		
 		//获取客户端ip地址
 		String clientIp = session.getRemoteAddress().getAddress().getHostAddress();
@@ -125,14 +128,14 @@ public class ChartRoomVisitorHandler extends TextWebSocketHandler{
 	public void handleTransportError(WebSocketSession session,
 			Throwable exception) throws Exception {
 		// 消息传输出错时调用
-		System.out.println("handleTransportError");
+		logger.info("handleTransportError");
 	}
 
 	@Override
 	public void afterConnectionClosed(WebSocketSession session,
 			CloseStatus closeStatus) throws Exception {
 		// 一个客户端连接断开时关闭
-		System.out.println("afterConnectionClosed");
+		logger.info("afterConnectionClosed");
 		
 		//获取连接的唯一session id
 		String sessionID = session.getId();
@@ -145,14 +148,16 @@ public class ChartRoomVisitorHandler extends TextWebSocketHandler{
 		
 		//向所有已连接的客户端推送在线人数消息
 		ChartRoom chartRoom = chartRooms.getChartRoom(urlID);
-		List<ChartRoomClient> chartRoomClients = chartRoom.getChartRoomClients();
-		int clientCount = chartRoom.getChartRoomClientSize();
-		//创建消息对象
-		ChartMessage chartMessage = new ChartMessage();
-		chartMessage.setMsgType(ChartMessage.MSG_TYPE_CLIENT_COUNT);
-		chartMessage.setClientCount(clientCount);
-		
-		sendMessage(chartRoomClients, chartMessage);
+		if (chartRoom != null) {
+			List<ChartRoomClient> chartRoomClients = chartRoom.getChartRoomClients();
+			int clientCount = chartRoom.getChartRoomClientSize();
+			//创建消息对象
+			ChartMessage chartMessage = new ChartMessage();
+			chartMessage.setMsgType(ChartMessage.MSG_TYPE_CLIENT_COUNT);
+			chartMessage.setClientCount(clientCount);
+			
+			sendMessage(chartRoomClients, chartMessage);
+		}
 	}
 
 	@Override
@@ -168,6 +173,7 @@ public class ChartRoomVisitorHandler extends TextWebSocketHandler{
 		} catch (UnsupportedEncodingException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
+			logger.error("创建websocket消息失败", e1);
 		}
 		for (int i=0; i<chartRoomClients.size(); ++i) {
 			WebSocketSession clientSession = chartRoomClients.get(i).getSession();
@@ -176,6 +182,7 @@ public class ChartRoomVisitorHandler extends TextWebSocketHandler{
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				logger.error("发送websocket消息失败", e);
 			}
 		}
 	}

@@ -145,21 +145,23 @@ public class ChartRoomBloggerHandler extends TextWebSocketHandler{
 		
 		//向所有已连接的客户端推送在线人数消息
 		ChartRoom chartRoom = chartRooms.getChartRoom(urlID);
-		List<ChartRoomClient> chartRoomClients = chartRoom.getChartRoomClients();
-		int clientCount = chartRoom.getChartRoomClientSize();
-		//创建消息对象
-		ChartMessage chartMessage = new ChartMessage();
-		chartMessage.setMsgType(ChartMessage.MSG_TYPE_CLIENT_COUNT);
-		chartMessage.setClientCount(clientCount);
-		
-		sendMessage(chartRoomClients, chartMessage);
-		
-		//向所有已连接的客户端推送博主离线状态消息
-		//创建博主上线状态消息对象
-		chartMessage = new ChartMessage();
-		chartMessage.setMsgType(ChartMessage.MSG_TYPE_BLOGGER_STATUS);
-		chartMessage.setBloggerStatus(0);
-		sendMessage(chartRoomClients, chartMessage);
+		if (chartRoom != null) {
+			List<ChartRoomClient> chartRoomClients = chartRoom.getChartRoomClients();
+			int clientCount = chartRoom.getChartRoomClientSize();
+			//创建消息对象
+			ChartMessage chartMessage = new ChartMessage();
+			chartMessage.setMsgType(ChartMessage.MSG_TYPE_CLIENT_COUNT);
+			chartMessage.setClientCount(clientCount);
+			
+			sendMessage(chartRoomClients, chartMessage);
+			
+			//向所有已连接的客户端推送博主离线状态消息
+			//创建博主上线状态消息对象
+			chartMessage = new ChartMessage();
+			chartMessage.setMsgType(ChartMessage.MSG_TYPE_BLOGGER_STATUS);
+			chartMessage.setBloggerStatus(0);
+			sendMessage(chartRoomClients, chartMessage);
+		}
 	}
 
 	@Override

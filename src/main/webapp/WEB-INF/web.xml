@@ -4,6 +4,24 @@
     <param-name>contextConfigLocation</param-name>
     <param-value>/WEB-INF/applicationContext-*.xml</param-value>
   </context-param>
+  
+  <!-- log4j配置文件路径 -->
+  <context-param>
+      <param-name>log4jConfigLocation</param-name>
+      <param-value>/WEB-INF/log4j.properties</param-value>
+   </context-param>
+   <!-- log4j开启一个线程，每隔6000秒扫描一次log4j配置文件的改变，这样改配置不需重启中间件-->
+   <context-param>
+      <param-name>log4jRefreshInterval</param-name>
+      <param-value>6000</param-value>
+   </context-param>
+   <!-- 读取log4j配置项的监听器 -->
+    <listener>
+      <listener-class>
+        org.springframework.web.util.Log4jConfigListener
+      </listener-class>
+   </listener>
+   
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
