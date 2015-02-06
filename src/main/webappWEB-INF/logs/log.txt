@@ -1,3 +1,0 @@
-2015-02-06 17:22:50 [cn.com.daybreak.client.blog.websocket.chart.handler.ChartRoomVisitorHandler]-[ChartRoomVisitorHandler.java:75]-[INFO] - afterConnectionEstablished: q7yeqjg9-阿斯达
-2015-02-06 17:23:31 [cn.com.daybreak.client.blog.websocket.chart.handler.ChartRoomVisitorHandler]-[ChartRoomVisitorHandler.java:138]-[INFO] - afterConnectionClosed
-2015-02-06 17:23:32 [cn.com.daybreak.client.blog.websocket.chart.handler.ChartRoomVisitorHandler]-[ChartRoomVisitorHandler.java:75]-[INFO] - afterConnectionEstablished: ciffizqt-阿斯达
