@@ -52,8 +52,8 @@
     </bean>
      
     <!-- websocket消息处理bean -->
-	<bean id="ChartRoomBloggerHandler" class="cn.com.daybreak.admin.blog.websocket.chart.handler.ChartRoomBloggerHandler"/>
-	<bean id="ChartRoomVisitorHandler" class="cn.com.daybreak.client.blog.websocket.chart.handler.ChartRoomVisitorHandler"/>
+	<bean id="ChartRoomBloggerHandler" class="cn.com.daybreak.blog.websocket.admin.chart.handler.ChartRoomBloggerHandler"/>
+	<bean id="ChartRoomVisitorHandler" class="cn.com.daybreak.blog.websocket.client.chart.handler.ChartRoomVisitorHandler"/>
 	<websocket:handlers>
 		<!-- 配置消息处理bean和路径的映射关系 -->
 		<websocket:mapping path="/admin/chartroom/urlid/{urlID}/nickname/{nickName}" handler="ChartRoomBloggerHandler"/>

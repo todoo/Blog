@@ -45,5 +45,6 @@ Temporary Items
 src/main/webapp/META-INF/
 src/main/webapp/WEB-INF/classes/
 src/main/webapp/WEB-INF/lib/
+src/main/webapp/WEB-INF/logs/
 !target/readme
 target/
