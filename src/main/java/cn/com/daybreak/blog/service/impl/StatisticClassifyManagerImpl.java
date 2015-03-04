@@ -8,6 +8,8 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import cn.com.daybreak.blog.common.bean.ResultInfo;
@@ -23,6 +25,7 @@ public class StatisticClassifyManagerImpl implements StatisticClassifyManager {
 	
 	@SuppressWarnings("unchecked")
 	@Override
+	@CacheEvict(value = "statisticClassifyServiceCache", allEntries = true)
 	public ResultInfo statisticClassify() {
 		ResultInfo result = new ResultInfo(true);
 		try {
@@ -87,6 +90,7 @@ public class StatisticClassifyManagerImpl implements StatisticClassifyManager {
 
 	@SuppressWarnings("unchecked")
 	@Override
+	@Cacheable(value = "statisticClassifyServiceCache", key = "'getClassifyChartData' + #urlID")
 	public ResultInfo getClassifyChartData(String urlID) {
 		ResultInfo result = new ResultInfo(true);
 		try {

@@ -1,10 +1,13 @@
 package cn.com.daybreak.blog.common.bean;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ResultInfo {
+public class ResultInfo implements Serializable {
 
+	private static final long serialVersionUID = -3605856202819817930L;
+	
 	protected boolean success = false;
 	protected String message = null;
 	protected Map<String,Object> data = new HashMap<String,Object>();

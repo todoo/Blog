@@ -17,7 +17,9 @@
     http://www.springframework.org/schema/task
     http://www.springframework.org/schema/task/spring-task-4.1.xsd
     http://www.springframework.org/schema/websocket
-	http://www.springframework.org/schema/websocket/spring-websocket-4.1.xsd">
+	http://www.springframework.org/schema/websocket/spring-websocket-4.1.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop-4.1.xsd">
     
     <context:annotation-config/>
     
@@ -70,4 +72,6 @@
 		<property name="maxTextMessageBufferSize" value="24576"/>
 		<property name="maxBinaryMessageBufferSize" value="8388608"/>
 	</bean>
+	
+	<aop:aspectj-autoproxy/> 
 </beans>

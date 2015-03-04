@@ -2,6 +2,8 @@ package cn.com.daybreak.blog.service;
 
 import java.util.Date;
 
+import org.springframework.cache.annotation.Cacheable;
+
 import cn.com.daybreak.blog.common.bean.ResultInfo;
 
 public interface StatisticActivityManager {

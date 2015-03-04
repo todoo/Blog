@@ -8,11 +8,17 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.TimeZone;
 
+import net.sf.ehcache.CacheManager;
+
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.Cache;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.ehcache.EhCacheCacheManager;
 import org.springframework.stereotype.Service;
 
 import cn.com.daybreak.blog.common.bean.ResultInfo;
@@ -25,9 +31,10 @@ import cn.com.daybreak.blog.service.StatisticActivityManager;
 public class StatisticActivityManagerImpl implements StatisticActivityManager {
 	@Autowired
 	private SessionFactory sf;
-	
+		
 	@SuppressWarnings("unchecked")
 	@Override
+	@Cacheable(value = "statisticActivityServiceCache", key = "'getActivityChartData' + #urlID + T(cn.com.daybreak.blog.common.tools.DateUtils).dateToStr(#startMonth) + T(cn.com.daybreak.blog.common.tools.DateUtils).dateToStr(#endMonth)")
 	public ResultInfo getActivityChartData(String urlID, Date startMonth,
 			Date endMonth) {
 		ResultInfo result = new ResultInfo(true);
@@ -105,6 +112,7 @@ public class StatisticActivityManagerImpl implements StatisticActivityManager {
 
 	@SuppressWarnings("unchecked")
 	@Override
+	@CacheEvict(value = "statisticActivityServiceCache", allEntries = true)
 	public ResultInfo statisticActivity() {
 		ResultInfo result = new ResultInfo(true);
 		try {
