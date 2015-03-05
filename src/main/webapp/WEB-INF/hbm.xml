@@ -5,6 +5,7 @@
 
 <hibernate-mapping package="cn.com.daybreak.blog.model.entity">    
     <class name="User" table="User">
+    	<cache usage="read-write"/>
         <id name="userID" column="userID">
             <generator class="native"/>
         </id>
@@ -114,6 +115,7 @@
     </class>
     
 	<class name="Blog" table="Blog">
+		<cache usage="read-write"/>
         <id name="blogID" column="blogID">
             <generator class="native"/>
         </id>
@@ -130,6 +132,7 @@
     </class>
     
     <class name="LifeStatus" table="LifeStatus">
+    	<cache usage="read-write"/>
         <id name="lifeStatusID" column="lifeStatusID">
             <generator class="native"/>
         </id>
@@ -267,6 +270,7 @@
     </class>
     
     <class name="DicMediaType" table="DicMediaType">
+    	<cache usage="read-write"/>
         <id name="mediaTypeID" column="mediaTypeID">
             <generator class="native"/>
         </id>
@@ -288,6 +292,7 @@
     </class>
     
     <class name="Media" table="Media">
+    	<cache usage="read-write"/>
         <id name="mediaID" column="mediaID">
             <generator class="native"/>
         </id>
@@ -318,6 +323,7 @@
     </class>
     
     <class name="BackgroundMusic" table="BackgroundMusic">
+    	<cache usage="read-write"/>
         <id name="bgMusicID" column="bgMusicID">
             <generator class="native"/>
         </id>

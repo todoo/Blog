@@ -63,7 +63,7 @@ public class LifeStatusManagerImpl implements LifeStatusManager {
 			String hql = "from User where urlID=:urlID";
 			Query query = session.createQuery(hql);
 			query.setString("urlID", urlID);
-			Iterator<User> users= query.iterate();
+			Iterator<User> users= query.setCacheable(true).iterate();
 			
 			User user = null;
 			if (users.hasNext()) {

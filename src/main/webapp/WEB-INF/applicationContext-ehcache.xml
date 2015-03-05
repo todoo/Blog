@@ -12,8 +12,8 @@
 
 	<!-- cacheManager工厂类，指定ehcache.xml的位置 -->
 	<bean id="ehcache" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
-		<property name="configLocation"  value="/WEB-INF/ehcache.xml"/>
-		<!-- <property name="shared"  value="true"/>   -->  
+		<property name="configLocation"  value="classpath:ehcache.xml"/>
+		<property name="shared"  value="true"/>
 	</bean>
 	
 	<!-- 声明cacheManager -->

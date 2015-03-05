@@ -2,6 +2,7 @@ package cn.com.daybreak.blog.service.impl;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -11,11 +12,14 @@ import org.springframework.stereotype.Service;
 import cn.com.daybreak.blog.common.bean.ResultInfo;
 import cn.com.daybreak.blog.model.entity.User;
 import cn.com.daybreak.blog.service.UserManager;
+import cn.com.daybreak.blog.websocket.client.chart.handler.ChartRoomVisitorHandler;
 
 @Service
 public class UserManagerImpl implements UserManager {
 	@Autowired
 	private SessionFactory sf;
+	
+	private Logger logger = Logger.getLogger(UserManagerImpl.class);
 	
 	@Override
 	public ResultInfo getUser(int userID) {
@@ -56,7 +60,7 @@ public class UserManagerImpl implements UserManager {
 			String hql = "from User where urlID=?";
 			Query query = session.createQuery(hql);
 			query.setString(0, urlID);
-			List<User> users = query.list();
+			List<User> users = query.setCacheable(true).list();
 			if (users.size()>0) {
 				result.addData("user", users.get(0));
 			} else {
@@ -70,7 +74,6 @@ public class UserManagerImpl implements UserManager {
 			result.setSuccess(false);
 			result.setMessage("获取用户信息异常");
 		}
-		
 		return result;
 	}
 

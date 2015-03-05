@@ -43,6 +43,17 @@ public class StatisticController {
     	cal.set(Calendar.MONTH, cal.get(Calendar.MONTH)-2);
     	Date startMonth = cal.getTime();
     	
+//    	CacheManager manager = cacheManager.getCacheManager();
+//    	String[] cacheNames = manager.getCacheNames();
+//    	System.out.println("+++++++++++++++caches+++++++++++++++++++++");
+//    	for (int i=0; i<cacheNames.length; ++i) {
+//    		System.out.println("-----cacheName : " + cacheNames[i]);
+//    		Cache cache = manager.getCache(cacheNames[i]);
+//    		List<Object> keys = cache.getKeys();
+//    		for (Object key : keys) {
+//    			System.out.println(key + " : " + cache.get(key).getObjectValue());
+//    		}
+//    	}
 		return statActivityManager.getActivityChartData(urlID,startMonth,endMonth);
 	}
 	

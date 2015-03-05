@@ -29,7 +29,7 @@ public class BackgroundMusicManagerImpl implements BackgroundMusicManager {
 			String hql = "from BackgroundMusic a where a.user.urlID=:urlID";
 			Query query = session.createQuery(hql);
 			query.setString("urlID", urlID);
-			List<BackgroundMusic> bgMusics = query.list();
+			List<BackgroundMusic> bgMusics = query.setCacheable(true).list();
 			
 			//随机获取一个背景音乐
 			int size = bgMusics.size();
