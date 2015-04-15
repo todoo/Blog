@@ -82,4 +82,10 @@ public class ChartRoom {
 	public List<ChartRoomClient> getChartRoomClients() {
 		return new ArrayList<ChartRoomClient>(this.clients.values());
 	}
+	
+	public boolean isBloggerOnline() {
+		if (this.sessionID != null) 
+			return true;
+		return false;
+	}
 }

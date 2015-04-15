@@ -1,7 +1,9 @@
 package cn.com.daybreak.blog.common.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ResultInfo implements Serializable {
@@ -11,11 +13,11 @@ public class ResultInfo implements Serializable {
 	protected boolean success = false;
 	protected String message = null;
 	protected Map<String,Object> data = new HashMap<String,Object>();
+	protected List<FormErrorInfo> errors = new ArrayList<FormErrorInfo>();
 
 	public ResultInfo(boolean success) {
 		this.success = success;
 	}
-	
 	
 	public ResultInfo(String key,Object object) {
 		this.success = true;
@@ -26,6 +28,7 @@ public class ResultInfo implements Serializable {
 		this.success = success;
 		this.message = message;
 	}
+	
 	public ResultInfo(boolean success, String message, Map<String,Object> data) {
 		this.success = success;
 		this.message = message;
@@ -35,12 +38,15 @@ public class ResultInfo implements Serializable {
 	public void setSuccess(boolean success) {
 		this.success = success;
 	}
+	
 	public boolean isSuccess() {
 		return success;
 	}
+	
 	public void setMessage(String message) {
 		this.message = message;
 	}
+	
 	public String getMessage() {
 		return message;
 	}
@@ -48,12 +54,15 @@ public class ResultInfo implements Serializable {
 	public Map<String, Object> getData() {
 		return data;
 	}
+	
 	public void setData(Map<String, Object> data) {
 		this.data = data;
 	}
+	
 	public void setData(String key, Object data) {
 		this.data.put(key, data);
 	}
+	
 	public void addData(String key, Object data) {
 		this.data.put(key, data);
 	}
@@ -61,4 +70,13 @@ public class ResultInfo implements Serializable {
 	public Object getData(String key){
 		return data.get(key);
 	}
+
+	public List<FormErrorInfo> getErrors() {
+		return errors;
+	}
+
+	public void setErrors(List<FormErrorInfo> errors) {
+		this.errors = errors;
+	}
+	
 }

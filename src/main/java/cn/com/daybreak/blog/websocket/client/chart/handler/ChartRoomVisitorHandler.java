@@ -118,7 +118,7 @@ public class ChartRoomVisitorHandler extends TextWebSocketHandler{
 		//创建博主上线状态消息对象
 		chartMessage = new ChartMessage();
 		chartMessage.setMsgType(ChartMessage.MSG_TYPE_BLOGGER_STATUS);
-		chartMessage.setBloggerStatus(1);
+		chartMessage.setBloggerStatus(chartRoom.isBloggerOnline()?1:0);
 		chartRoomClients = new ArrayList<ChartRoomClient>();
 		chartRoomClients.add(client);
 		sendMessage(chartRoomClients, chartMessage);

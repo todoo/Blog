@@ -1,72 +1,51 @@
 package cn.com.daybreak.blog.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.SQLQuery;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cn.com.daybreak.blog.common.bean.ResultInfo;
+import cn.com.daybreak.blog.dao.CategoryDao;
+import cn.com.daybreak.blog.dao.UserDao;
 import cn.com.daybreak.blog.model.entity.ArticleCategory;
 import cn.com.daybreak.blog.service.CategoryManager;
 
 @Service
 public class CategoryManagerImpl implements CategoryManager{
-	@Autowired
-	private SessionFactory sf;
+	private Logger logger = Logger.getLogger(CategoryManagerImpl.class);
 	
-	@SuppressWarnings("unchecked")
+	@Autowired
+	private UserDao userDao;
+	
+	@Autowired
+	private CategoryDao categoryDao;
+	
 	@Override
 	public ResultInfo getCategorys(String urlID, int parentID) {
+		logger.info("获取一个类目的所有子类目urlID=" + urlID + "&parentID=" + parentID);
+		
 		ResultInfo result = new ResultInfo(true);
-		try {
-			Session session = sf.getCurrentSession();
-			session.beginTransaction();
-			
-			List<ArticleCategory> articleCategories = null;
-			
-			String sql = "select * from ArticleCategory a,User b where a.parentID=:parentID and b.urlID=:urlID and a.userID=b.userID";
-			SQLQuery sqlQuery = session.createSQLQuery(sql);
-			sqlQuery.setString("urlID", urlID);
-			sqlQuery.setInteger("parentID", parentID);
-			
-			articleCategories = sqlQuery.addEntity(ArticleCategory.class).list();
-			
-			for (int i=0; i<articleCategories.size(); ++i) {
-				articleCategories.get(i).setArticleCount(getArticleCountByCategory(articleCategories.get(i)));
-			}
-			
-			result.addData("categories", articleCategories);
-
-			session.getTransaction().commit();
-			
-		} catch (Exception e) {
-			e.printStackTrace();
+		
+		//检测用户是否存在
+		if (!userDao.isExistUserByUrlID(urlID)) {
+			logger.error("用户不存在");
 			result.setSuccess(false);
-			result.setMessage("获取类目列表异常");
-		}
-		return result;
-	}
-	
-	/**
-	 * 获取某一类目及其子类目的所有博文数目，必须在session开启范围里调用
-	 * @param category
-	 * @return
-	 */
-	private int getArticleCountByCategory(ArticleCategory category) {
-		if (category.getSubCategories().size()<=0) {
-			return category.getArticles().size();
-		}
-		int sum = category.getArticles().size();
-		List<ArticleCategory> subCategories = new ArrayList<ArticleCategory>(category.getSubCategories());
-		for(int i=0; i<subCategories.size(); ++i) {
-			sum += getArticleCountByCategory(subCategories.get(i));
+			result.setMessage("用户不存在");
+			return result;
 		}
 		
-		return sum;
+		//获取子类目列表
+		List<ArticleCategory> articleCategories = categoryDao.queryListByUrlIDAndParentID(urlID, parentID);
+		
+		//获取每个类目中，当前类目及其子类目共包含博文的数目
+		for (int i=0; i<articleCategories.size(); ++i) {
+			articleCategories.get(i).setArticleCount(categoryDao.queryArticleCountByCategoryID(articleCategories.get(i).getCategoryID()));
+		}
+		
+		result.addData("categories", articleCategories);
+		
+		return result;
 	}
-
 }

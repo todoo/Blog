@@ -1,12 +1,14 @@
 package cn.com.daybreak.blog.service;
 
 import cn.com.daybreak.blog.common.bean.ResultInfo;
+import cn.com.daybreak.blog.model.entity.User;
 
 public interface UserManager {
 	/**
 	 * 获取用户信息
 	 * @param userID
 	 * @return
+	 * @throws Exception 
 	 */
 	public ResultInfo getUser(int userID);
 	
@@ -23,4 +25,12 @@ public interface UserManager {
 	 * @return
 	 */
 	public ResultInfo getUserByUserName(String userName);
+	
+	/**
+	 * 新增用户
+	 * @param user
+	 * @return
+	 */
+	public ResultInfo addUser(User user);
+	
 }

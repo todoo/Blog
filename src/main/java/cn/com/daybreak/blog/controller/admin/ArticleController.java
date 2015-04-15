@@ -2,6 +2,7 @@ package cn.com.daybreak.blog.controller.admin;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -75,11 +76,20 @@ public class ArticleController {
 	public ResultInfo updatearticle(HttpServletRequest req, HttpServletResponse resp, @RequestBody String putData) {
 		String userName = SecurityUserInfoUtil.getUsername();
 		JSONObject articleJson = JSONObject.fromObject(putData);
-		Article article = new Article();
-		article.setArticleID(articleJson.getInt("articleID"));
+		
+		//获取原博文
+		Article article = articleManager.getArticleByArticleID(articleJson.getInt("articleID"));
+		if (null == article) {
+			ResultInfo result = new ResultInfo(false);
+			result.setMessage("更新失败，不存在该博文");
+			
+			return result;
+		}
+		
 		article.setArticleTitle(articleJson.getString("articleTitle"));
 		article.setArticleBrief(articleJson.getString("articleBrief").replaceAll("\\n", "<br/>"));
 		article.setArticleContent(articleJson.getString("articleContent"));
+		article.setUpdateTime(new Date());
 
 		return articleManager.updateArticleByUserName(userName, article);
 	}

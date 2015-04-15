@@ -13,6 +13,13 @@ public interface ArticleManager {
 	public ResultInfo getArticles(String urlID, int categoryID);
 	
 	/**
+	 * 获取article
+	 * @param articleID
+	 * @return
+	 */
+	public Article getArticleByArticleID(int articleID);
+	
+	/**
 	 * 新增博文
 	 * @param userName
 	 * @param categoryID

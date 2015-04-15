@@ -8,9 +8,10 @@
                         http://www.springframework.org/schema/security/spring-security-3.0.xsd">  
  <http auto-config='true'>
  	<intercept-url pattern="/resources/**" filters="none"/>
- 	<intercept-url pattern="/" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
- 	<intercept-url pattern="/admin/login" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-	<intercept-url pattern="/admin/**" access="ROLE_USER"/>
+ 	<intercept-url pattern="/" access="IS_AUTHENTICATED_ANONYMOUSLY" requires-channel="https"/>
+ 	<intercept-url pattern="/admin/login" access="IS_AUTHENTICATED_ANONYMOUSLY" requires-channel="https"/>
+	<intercept-url pattern="/admin/**" access="ROLE_USER" requires-channel="https"/>
+	<intercept-url pattern="/test/**" access="IS_AUTHENTICATED_ANONYMOUSLY" requires-channel="https"/>
 	<form-login login-page="/admin/login" 
 		authentication-failure-url="/admin/login?error=true"
 		default-target-url="/admin"
